@@ -199,7 +199,7 @@ select custId, count(*) from orders group by custId;
 select custId, count(*) from orders group by custId;
 
 /* 도서가격이 8천원 이상인 도서를 구매한 고객에 대하여 주문도서의 총수량을 구하시오.
-	단, 2권이상 구매한 고객만 대상으로한다.(고객아이디 출력) */
+	단, 4권이상 구매한 고객만 대상으로한다.(고객아이디 출력) */
 SELECT custId, count(*) 
 FROM orders 
 WHERE salePrice>=8000 GROUP BY custId HAVING count(*)>=4;
@@ -278,8 +278,6 @@ select distinct cc.name from customer cc, orders oo
 where cc.custId not in (select custId from orders);
 
 select name from customer where custId not in (select custId from orders);
-
-
 
 
 
