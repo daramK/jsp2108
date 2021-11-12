@@ -17,11 +17,12 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="#">학습실</a>
-	    <div class="dropdown-menu">
-	      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping">URL(디렉토리)매핑</a>
-	      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping.url">URL(확장자)매핑</a>
-	      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping.url2"">URL(확장자)매핑2</a>
-	    </div>
+		    <div class="dropdown-menu">
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping">URL(디렉토리)매핑</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping.url">URL(확장자)매핑</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/URLMapping.url2">URL(확장자)매핑2</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/password">비밀번호암호화</a>
+		    </div>
       </li>
     </ul>
   </div>  
