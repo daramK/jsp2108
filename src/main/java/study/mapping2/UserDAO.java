@@ -71,7 +71,7 @@ public class UserDAO {
 		}
 		return vos;
 	}
-	
+
 	// 정보 삭제하기
 	public int setUserDel(int idx) {
 		int res = 0;
@@ -86,7 +86,7 @@ public class UserDAO {
 		} finally {
 			pstmtClose();
 		}
-//		System.out.println("res : " + res);
+		//System.out.println("res : " + res);
 		return res;
 	}
 
@@ -125,10 +125,11 @@ public class UserDAO {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
 			rsClose();
-		}		
+		}
 		return vo;
 	}
 
+	// 정보 수정하기
 	public int setUserUpdateOk(UserVO vo) {
 		int res = 0;
 		try {
@@ -145,6 +146,26 @@ public class UserDAO {
 			pstmtClose();
 		}
 		return res;
+	}
+
+	// idx(고유번호)를 이용한 자료 검색
+	public UserVO getIdxSearch(int idx) {
+		vo = new UserVO();
+		try {
+			sql = "select * from user where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			vo.setIdx(idx);
+			vo.setName(rs.getString("name"));
+			vo.setAge(rs.getInt("age"));
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
 	}
 	
 	
