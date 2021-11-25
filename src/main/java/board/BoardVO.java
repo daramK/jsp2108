@@ -17,7 +17,7 @@ public class BoardVO {
 	private String wCdate;
 	private int wNdate;
 	
-	// 이전글/다음글
+	// 이전글/다음글을 위한 변수
 	private int preIdx;
 	private int nextIdx;
 	private String preTitle;
@@ -127,12 +127,9 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email
-				+ ", homePage=" + homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum
-				+ ", hostIp=" + hostIp + ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate
-				+ ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle=" + nextTitle
-				+ "]";
+		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email + ", homePage="
+				+ homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum + ", hostIp=" + hostIp
+				+ ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate + ", preIdx=" + preIdx
+				+ ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle=" + nextTitle + "]";
 	}
-	
-	
 }

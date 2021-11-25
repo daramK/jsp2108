@@ -12,7 +12,7 @@
   <script>
     function delCheck() {
     	var ans = confirm("게시글을 삭제하시겠습니까?");
-    	if(ans) location.href="${ctp}/boDelete.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}";
+    	if(ans) location.href="${ctp}/boDelete.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}";
     }
     
     // 좋아요 처리 - 1
@@ -49,6 +49,76 @@
     			else {
     				location.reload();
     			}
+    		}
+    	});
+    }
+    
+    // 댓글 입력처리
+    function replyCheck() {
+    	var content = replyForm.content.value;
+    	if(content.trim() == "") {
+    		alert("댓글을 입력하세요?");
+    		replyForm.content.focus();
+    	}
+    	else {
+    		replyForm.submit();
+    	}
+    }
+    
+    // 댓글 수정처리(보류.......)
+    function boReplyUpdate(replyIdx) {
+    	var query = {
+    			idx 			: ${vo.idx},
+    			pag 			: ${pag},
+    			pageSize 	: ${pageSize},
+    			lately 		: ${lately},
+    			replyIdx 	: replyIdx
+    	}
+    	$.ajax({
+    		type : "post",
+    		url  : "${ctp}/boContent.bo",
+    		data : query,
+    		success:function(data) {
+    			alert("content :" + data);
+    			replyForm.content.value = data;
+    		}
+    	});
+    }
+    
+    // 댓글 수정처리(aJax처리)
+    function replyUpdateCheck(replyIdx) {
+    	var content = $("#content").val();
+    	var hostIp = '${pageContext.request.remoteAddr}';
+    	query = {
+    			replyIdx : replyIdx,
+    			content  : content,
+    			hostIp   : hostIp
+    	}
+    	
+    	$.ajax({
+    		type  : "post",
+    		url   : "${ctp}/boReplyUpdateOk.bo",
+    		data  : query,
+    		success:function() {
+    			alert("댓글이 수정처리 되었습니다.");
+    			location.href = "${ctp}/boContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}";
+    		}
+    	});
+    }
+    
+    // 댓글 삭제
+    function replyDelCheck(replyIdx) {
+    	var query = {replyIdx : replyIdx};
+    	var ans = confirm("선택하신 댓글을 삭제하시겠습니까?");
+    	if(!ans) return false;
+    	
+    	$.ajax({
+    		type  : "get",
+    		url   : "${ctp}/boReplyDelete.bo",
+    		data  : query,
+    		success:function() {
+    			alert("삭제처리 되었습니다.");
+    			location.reload();
     		}
     	});
     }
@@ -91,7 +161,7 @@
     </tr>
     <tr>
       <th>좋아요</th>
-      <td colspan="3"><a href="${ctp}/boGood.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&sw=search">❤</a>(${vo.good})</td>
+      <td colspan="3"><a href="${ctp}/boGood.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&sw=search&lately=${lately}">❤</a>(${vo.good})</td>
     </tr>
     <tr>
       <th>글제목</th>
@@ -104,9 +174,9 @@
     <tr>
       <td colspan="4" class="text-center">
         <c:if test="${sw != 'search'}">
-	        <input type="button" value="돌아가기" onclick="location.href='${ctp}/boList.bo?pag=${pag}&pageSize=${pageSize}';"/>
+	        <input type="button" value="돌아가기" onclick="location.href='${ctp}/boList.bo?pag=${pag}&pageSize=${pageSize}&lately=${lately}';"/>
 	        <c:if test="${sMid == vo.mid}">
-	          <input type="button" value="수정하기" onclick="location.href='${ctp}/boUpdate.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}';"/>
+	          <input type="button" value="수정하기" onclick="location.href='${ctp}/boUpdate.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}';"/>
 	          <input type="button" value="삭제하기" onclick="delCheck()"/>
 	        </c:if>
         </c:if>
@@ -116,7 +186,6 @@
       </td>
     </tr>
   </table>
-  <br/>
   
   <c:if test="${sw != 'search'}">
   <!-- 이전글/다음글 처리 -->
@@ -124,15 +193,65 @@
 	    <tr>
 	      <td>
 	        <c:if test="${nextVO.nextIdx != 0}">
-		        👆 <a href="${ctp}/boContent.bo?idx=${nextVO.nextIdx}&pag=${pag}&pageSize=${pageSize}">다음글 : ${nextVO.nextTitle}</a><br/>
+		        👆 <a href="${ctp}/boContent.bo?idx=${nextVO.nextIdx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}">다음글 : ${nextVO.nextTitle}</a><br/>
 	        </c:if>
 	        <c:if test="${preVO.preIdx != 0}">
-		        👇 <a href="${ctp}/boContent.bo?idx=${preVO.preIdx}&pag=${pag}&pageSize=${pageSize}">이전글 : ${preVO.preTitle}</a><br/>
+		        👇 <a href="${ctp}/boContent.bo?idx=${preVO.preIdx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}">이전글 : ${preVO.preTitle}</a><br/>
 	        </c:if>
 	      </td>
 	    </tr>
 	  </table>
   </c:if>
+  <br/>
+  
+  <!-- 댓글 출력/입력 처리부분 -->
+  <!-- 댓글 출력 -->
+  <table class="table table-hover">
+    <tr>
+      <th>작성자</th>
+      <th>댓글내용</th>
+      <th>작성일자</th>
+      <th>접속IP</th>
+    </tr>
+    <c:forEach var="replyVO" items="${replyVOS}">
+      <tr>
+        <td class="text-center">${replyVO.nickName}<br/>
+          <c:if test="${sMid == replyVO.mid}">
+           <font size="2">(<a href="${ctp}/boContent.bo?replyIdx=${replyVO.idx}&idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&lately=${lately}">수정</a>/<a href="javascript:replyDelCheck(${replyVO.idx})">삭제</a>)</font>
+           <%-- <font size="2">(<a href="javascript:boReplyUpdate(${replyVO.idx})">수정</a>/<a href="">삭제</a>)</font> --%>
+          </c:if>
+        </td>
+        <td>${fn:replace(replyVO.content,newLine,'<br/>')}</td>
+        <td class="text-center">${replyVO.wDate}</td>
+        <td class="text-center">${replyVO.hostIp}</td>
+      </tr>
+    </c:forEach>
+  </table>
+  <!-- 댓글 입력 -->
+  <form name="replyForm" method="post" action="${ctp}/boReplyInput.bo">
+	  <table class="table">
+	  	<tr>
+	  	  <td style="width:90%">
+	  	    글내용 :
+	  	    <textarea rows="4" name="content" id="content" class="form-control">${replyContent}</textarea>
+	  	  </td>
+	  	  <td style="width:10%">
+	  	    <br/><p>작성자 :<br/>${sNickName}</p>
+	  	    <p>
+	  	      <c:if test="${empty replyContent}"><input type="button" value="댓글달기" onclick="replyCheck()"/></c:if>
+	  	      <c:if test="${!empty replyContent}"><input type="button" value="댓글수정" onclick="replyUpdateCheck(${replyIdx})"/></c:if>
+	  	    </p>
+	  	  </td>
+	  	</tr>
+	  </table>
+	  <input type="hidden" name="boardIdx" value="${vo.idx}"/>
+	  <input type="hidden" name="mid" value="${sMid}"/>
+	  <input type="hidden" name="nickName" value="${sNickName}"/>
+	  <input type="hidden" name="hostIp" value="${pageContext.request.remoteAddr}"/>
+	  <input type="hidden" name="pag" value="${pag}"/>
+	  <input type="hidden" name="pageSize" value="${pageSize}"/>
+	  <input type="hidden" name="lately" value="${lately}"/>
+  </form>
 </div>
 <br/>
 <%@ include file="/include/footer.jsp" %>
