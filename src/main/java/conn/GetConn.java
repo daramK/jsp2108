@@ -16,14 +16,14 @@ public class GetConn {
 	private String user = "root";
 	private String password = "1234";
 	
-	public GetConn() {
+	private GetConn() {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 검색 실패");
+			System.out.println("드라이버 검색 실패~~");
 		} catch (SQLException e) {
-			System.out.println("Database 연동 실패");
+			System.out.println("Database 연동실패~~");
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class GetConn {
 			} catch (Exception e) {}
 		}
 	}
-	
+
 	public void pstmtClose() {
 		if(pstmt != null) {
 			try {

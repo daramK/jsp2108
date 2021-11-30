@@ -142,11 +142,11 @@ public class GuestDAO {
 	public int getWriteCnt(String mid, String nickName, String name) {
 		int guestCnt = 0;
 		try {
-			sql = "select count(*) from guest where name like ? or name like ? or name like?";
+			sql = "select count(*) from guest where name like ? or name like ? or name like ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+mid+"%");
 			pstmt.setString(2, "%"+nickName+"%");
-			pstmt.setString(2, "%"+name+"%");
+			pstmt.setString(3, "%"+name+"%");
 			rs = pstmt.executeQuery();
 			rs.next();
 			guestCnt = rs.getInt(1);
@@ -155,7 +155,6 @@ public class GuestDAO {
 		} finally {
 			rsClose();
 		}
-		
 		return guestCnt;
 	}
 }

@@ -154,6 +154,7 @@
 </c:if>
 </div>
 <!-- 블록 페이징처리 끝 -->
+
 <!-- 블록 페이징처리 시작(break문장 대체용으로 sw사용) -->
 <div style="text-align:center">
 <c:if test="${totPage == 0}"><p style="text-align:center"><b>자료가 없습니다.</b></p></c:if>

@@ -34,7 +34,7 @@
   <form name="myform" method="post" action="${ctp}/boUpdateOk.bo">
 	  <table class="table table-borderless">
 	    <tr>
-	      <td><h2>게시판 글쓰기</h2></td>
+	      <td><h2>게시판 글수정하기</h2></td>
 	    </tr>
 	  </table>
 	  <table class="table">
@@ -44,11 +44,11 @@
 	    </tr>
 	    <tr>
 	      <th>글제목</th>
-	      <td><input type="text" name="title" value="${vo.title}" placeholder="글제목을 입력하세요" class="form-control" autofocus required /></td>
+	      <td><input type="text" name="title" value="${vo.title}" class="form-control" autofocus required /></td>
 	    </tr>
 	    <tr>
 	      <th>이메일</th>
-	      <td><input type="text" name="email"value="${vo.email}" class="form-control"/></td>
+	      <td><input type="text" name="email" value="${vo.email}" class="form-control"/></td>
 	    </tr>
 	    <tr>
 	      <th>홈페이지</th>

@@ -22,8 +22,8 @@ public class BoInputOkCommand implements BoardInterface {
 		String hostIp = request.getParameter("hostIp")==null ? "" : request.getParameter("hostIp");
 		
 		// title필드에는 태그 사용금지(< ---> &lt;  , > --->  &gt;)
-		title = title.replace("<", "&lt");
-		title = title.replace(">", "&gt");
+		title = title.replace("<", "&lt;");
+		title = title.replace(">", "&gt;");
 		
 		BoardVO vo = new BoardVO();
 		vo.setMid(mid);

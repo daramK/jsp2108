@@ -16,13 +16,14 @@ public class BoUpdateOkCommand implements BoardInterface {
 		String homePage = request.getParameter("homePage")==null ? "" : request.getParameter("homePage");
 		String content = request.getParameter("content")==null ? "" : request.getParameter("content");
 		String hostIp = request.getParameter("hostIp")==null ? "" : request.getParameter("hostIp");
+		
 		int idx = request.getParameter("idx")==null ? 0 : Integer.parseInt(request.getParameter("idx"));
 		int pag = request.getParameter("pag")==null ? 1 : Integer.parseInt(request.getParameter("pag"));
 		int pageSize = request.getParameter("pageSize")==null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
-
+		
 		// title필드에는 태그 사용금지(< ---> &lt;  , > --->  &gt;)
-		title = title.replace("<", "&lt");
-		title = title.replace(">", "&gt");
+		title = title.replace("<", "&lt;");
+		title = title.replace(">", "&gt;");
 		
 		BoardVO vo = new BoardVO();
 		vo.setTitle(title);
@@ -38,7 +39,6 @@ public class BoUpdateOkCommand implements BoardInterface {
 		
 		if(res == 1) {
 			request.setAttribute("msg", "boUpdateOk");
-			request.setAttribute("url", request.getContextPath()+"/boUpdate.bo");
 		}
 		else {
 			request.setAttribute("msg", "boUpdateNo");

@@ -136,10 +136,10 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email
-				+ ", homePage=" + homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum
-				+ ", hostIp=" + hostIp + ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate
-				+ ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle=" + nextTitle
-				+ ", replyCount=" + replyCount + "]";
+		return "BoardVO [idx=" + idx + ", nickName=" + nickName + ", title=" + title + ", email=" + email + ", homePage="
+				+ homePage + ", content=" + content + ", wDate=" + wDate + ", readNum=" + readNum + ", hostIp=" + hostIp
+				+ ", good=" + good + ", mid=" + mid + ", wCdate=" + wCdate + ", wNdate=" + wNdate + ", preIdx=" + preIdx
+				+ ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle=" + nextTitle + ", replyCount=" + replyCount
+				+ "]";
 	}
 }
