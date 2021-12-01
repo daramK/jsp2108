@@ -14,7 +14,18 @@
   		if(!ans) return false;
   		
   		$.ajax({
-  			
+  			type : "post",
+  			url : "${ctp}/fileDelete.st",
+  			data : {file : file},
+  			success:function(res) {
+  				if(res == "fileDeleteOk") {
+  					alert("삭제처리 되었습니다.");
+  					location.reload();
+  				}
+  				else {
+  					alert("삭제 실패~~~");
+  				}
+  			}
   		});
   	}
   </script>
@@ -53,7 +64,7 @@
           </c:if>
         </td>
         <td>
-        	<a href="${ctp}/fileDelete?file=${file}" class="btn btn-secondary btn-sm">삭제</a>
+        	<a href="${ctp}/fileDelete?file=${file}" class="btn btn-secondary btn-sm">삭제</a>/
         	<a href="javascript:fileDelete('${file}')" class="btn btn-secondary btn-sm">aJax삭제</a>
         </td>
       </tr>
