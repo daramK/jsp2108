@@ -42,7 +42,7 @@
     function pdsDelCheck(idx, fSName) {
     	var ans = confirm("파일을 삭제하시겠습니까?");
     	if(!ans) return false;
-    	pwd = prompt("비밀번호를 입력하세요?");
+    	var pwd = prompt("비밀번호를 입력하세요?");
     	
     	var query = {
     			idx : idx,
@@ -66,12 +66,15 @@
     	});
     }
     
-    // 통합 다운로드처리		<%-- ${ctp}/pdsDownload.pds?idx=${vo.idx} --%>
+    // 통합 다운로드처리
     function pdsDownLoad(idx) {
     	$.ajax({
     		type : "post",
-    		url : "${ctp}/pdsDownload.pds",
-    		data : {idx : idx}
+    		url : "${ctp}/pdsDownLoad.pds",
+    		data : {idx : idx},
+    		success:function() {
+    			location.reload();
+    		}
     	});
     }
   </script>
@@ -139,8 +142,9 @@
     	  <td>${vo.downNum}</td>
     	  <td>
     	    <c:if test="${vo.openSw == '공개' || sMid == vo.mid || sLevel == 0}">
-    	    	<a href="javascript:pdsDownLoad(${vo.idx})" class="btn btn-outline-secondary">전체다운</a>
-    	    	<a href="javascript:pdsDelCheck('${vo.idx}','${vo.fSName}')" class="btn btn-outline-secondary">삭제</a>
+    	    	<%-- <a href="javascript:pdsDownLoad(${vo.idx})" class="btn btn-outline-secondary btn-sm">전체다운</a> --%>
+    	    	<a href="${ctp}/pdsDownLoad.pds?idx=${vo.idx}" class="btn btn-outline-secondary btn-sm">전체다운</a>
+    	    	<a href="javascript:pdsDelCheck('${vo.idx}','${vo.fSName}')" class="btn btn-outline-secondary btn-sm">삭제</a>
     	    </c:if>
     	    <c:if test="${vo.openSw != '공개' && sMid != vo.mid && sLevel != 0}">비공개</c:if>
     	</tr>

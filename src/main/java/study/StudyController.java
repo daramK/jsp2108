@@ -87,7 +87,7 @@ public class StudyController extends HttpServlet {
 		else if(com.equals("/fileDelete")) {
 			command = new FileDeleteCommand();
 			command.execute(request, response);
-			viewPage = "/WEB-INF/message/message.jsp";
+			return;
 		}
 		else if(com.equals("/dynamicForm")) {
 			viewPage += "/dynamicForm/dynamicForm.jsp";
@@ -99,6 +99,9 @@ public class StudyController extends HttpServlet {
 			command = new ShaTestOkCommand();
 			command.execute(request, response);
 			return;
+		}
+		else if(com.equals("/calendar")) {
+			viewPage += "/calendar/calendar.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

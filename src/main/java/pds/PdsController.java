@@ -57,7 +57,7 @@ public class PdsController extends HttpServlet {
 			return;
 		}
 		else if(com.equals("/pdsDownload")) {
-			command = new PdsDownloadCommand();
+			command = new PdsDownLoadCommand();
 			command.execute(request, response);
 			return;
 		}

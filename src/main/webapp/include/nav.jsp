@@ -52,6 +52,7 @@
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/pdsTest2.st">PDS연습2</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/pdsTest3.st">PDS연습3</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/dynamicForm.st">동적폼연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/calendar.st">JSP달력</a>
 		    </div>
       </li>
 <%    } %>
@@ -60,6 +61,7 @@
 	        <a class="nav-link btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" href="#">My Page</a>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memMain.mem">회원방</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/schedule.sc">일정관리</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memUpdate.mem">회원정보변경</a>
 <%          if(level != 1) { %>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/memList.ad">회원리스트</a>
